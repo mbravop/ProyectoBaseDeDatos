@@ -2,7 +2,7 @@ CREATE DATABASE proyectobdd;
 use proyectobdd;
 
 CREATE TABLE Donador(
-	idDonador INT PRIMARY KEY,
+	idDonador INT PRIMARY KEY AUTO_INCREMENT,
     cedulaD VARCHAR(10) NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
