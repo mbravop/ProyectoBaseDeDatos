@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ import javafx.scene.control.TextField;
  */
 public class AnadirDonadorController {
 
-
+    ArrayList<String> errores = new ArrayList<>();
     @FXML
     private ComboBox<String> cmbTipoSangre;
     @FXML
@@ -46,21 +47,31 @@ public class AnadirDonadorController {
     
     @FXML
     private void anadirDonadorNuevo() throws IOException{ // HACER VALIDACIONES
-        String cedula = txtCedulaDonador.getText();
-        String nombre = txtNombreDonador.getText();
-        String apellido = txtApellidoDonador.getText();
-        String tipoS = cmbTipoSangre.getValue();
-        String tipificacion = cmbTipificacionSangre.getValue();
-        String sexo = cmbSexo.getValue();
-                
-        
-        try{
-            String consulta = "INSERT INTO Donador(cedulaD,nombre,apellido,sexo,tipoDeSangre,tipificacionSangre) VALUES ( '"+ cedula +"', '"+nombre+"', '"+apellido+"','"+sexo+"','"+tipoS+"','"+tipificacion+"')";
-            PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
-            ps.executeUpdate();
-            switchToMenuDonadores();
-        }  catch(SQLException e){
-            e.printStackTrace();
+        erroresValidacionesCampos();
+        if(errores.size()>0){
+            String cadenaErrores = "";
+            for(String s: errores){
+                cadenaErrores+= ( s + "\n");
+            }
+            
+            App.crearAlerta(cadenaErrores);
+        }else{
+            String cedula = txtCedulaDonador.getText();
+            String nombre = txtNombreDonador.getText();
+            String apellido = txtApellidoDonador.getText();
+            String tipoS = cmbTipoSangre.getValue();
+            String tipificacion = cmbTipificacionSangre.getValue();
+            String sexo = cmbSexo.getValue();
+
+
+            try{
+                String consulta = "INSERT INTO Donador(cedulaD,nombre,apellido,sexo,tipoDeSangre,tipificacionSangre) VALUES ( '"+ cedula +"', '"+nombre+"', '"+apellido+"','"+sexo+"','"+tipoS+"','"+tipificacion+"')";
+                PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+                ps.executeUpdate();
+                switchToMenuDonadores();
+            }  catch(SQLException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,5 +79,18 @@ public class AnadirDonadorController {
     private void switchToMenuDonadores() throws IOException {
         App.setRoot("menuDonadores");
     }
-
+    
+    private void erroresValidacionesCampos(){
+        errores.clear();
+        boolean revisionCedula = txtCedulaDonador.getText().chars().allMatch( Character :: isDigit );
+        boolean revisionNombre = txtNombreDonador.getText().chars().allMatch( Character :: isLetter);
+        boolean revisionApellido = txtApellidoDonador.getText().chars().allMatch(Character :: isLetter);
+        
+        if(!revisionCedula || txtCedulaDonador.getText().length()!=10) errores.add("Número de cédula no válido");
+        if(!revisionNombre) errores.add("Nombre no válido");
+        if(txtNombreDonador.getText().length()>=50) errores.add("Campo de nombre supera 50 caracteres");
+        if(!revisionApellido) errores.add("Nombre no válido");
+        if(txtApellidoDonador.getText().length()>=50) errores.add("Campo de apellido supera 50 caracteres");
+    }
+    
 }

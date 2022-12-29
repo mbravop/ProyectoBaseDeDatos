@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import javafx.scene.control.Alert;
 
 /**
  * JavaFX App
@@ -37,6 +38,14 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    public static void crearAlerta(String texto){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ha ocurrido un error");
+        alert.setHeaderText(null);
+        alert.setContentText(texto);
+        alert.showAndWait();
     }
 
 }

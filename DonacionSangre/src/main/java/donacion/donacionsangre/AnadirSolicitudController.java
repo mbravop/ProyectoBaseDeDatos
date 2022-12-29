@@ -44,6 +44,10 @@ public class AnadirSolicitudController implements Initializable {
 
     @FXML
     private void agregarSolicitud() throws IOException {
+        if(!txtCantidadSolicitada.getText().chars().allMatch( Character :: isDigit )){
+            App.crearAlerta("La cantidad solicitada no es válida");
+        }
+        
         try{
             String consulta = "INSERT INTO Solicitud(idBeneficiario,cantidadSolicitada,cantidadRecibida,fechaSolicitud,realizada) VALUES ("+ LogInBeneficiarioController.idBeneficiarioLog +", "+txtCantidadSolicitada.getText()+",0,CURDATE(),false)";
             PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);

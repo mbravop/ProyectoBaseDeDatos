@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javafx.scene.control.Button;
 
 /**
@@ -31,6 +32,8 @@ public class AnadirDonacionController {
     boolean infoMostrada = false;
     public static int idDonador;
     public static int idBeneficiario;
+    
+    ArrayList<String> errores = new ArrayList<>();
 
     @FXML
     private DatePicker dpFechaDonacion;
@@ -97,53 +100,64 @@ public class AnadirDonacionController {
 
     @FXML
     private void validarCedulaDonante() {
-        txtNombresDonante.setText("");
-        txtSangreDonante.setText("");
-        
-        String cedula = txtCedulaDonante.getText();
-        String busqueda = "SELECT idDonador, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Donador WHERE cedulaD= '"+cedula+"'";
-        
-        try{
-            Statement statement = App.conexionBaseDatos.createStatement();
-            ResultSet queryResult = statement.executeQuery(busqueda);
-            
-            while(queryResult.next()){
-                idDonador = queryResult.getInt("idDonador");
-                txtNombresDonante.setText(queryResult.getString("nombre")+" "+queryResult.getString("apellido"));
-                txtSangreDonante.setText(queryResult.getString("tipoDeSangre")+" "+queryResult.getString("tipificacionSangre"));
-            }
-            statement.close();
-        }catch(Exception e){
-            e.printStackTrace();
+        if(!txtCedulaDonante.getText().chars().allMatch( Character :: isDigit ) || txtCedulaDonante.getText().length()!=10 ){
+            App.crearAlerta("Numero de cédula no válido");
         }
-        
-        if(txtNombresDonante.getText()=="") System.out.println("No existe el donador");
+        else{
+            
+            txtNombresDonante.setText("");
+            txtSangreDonante.setText("");
+
+            String cedula = txtCedulaDonante.getText();
+            String busqueda = "SELECT idDonador, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Donador WHERE cedulaD= '"+cedula+"'";
+
+            try{
+                Statement statement = App.conexionBaseDatos.createStatement();
+                ResultSet queryResult = statement.executeQuery(busqueda);
+
+                while(queryResult.next()){
+                    idDonador = queryResult.getInt("idDonador");
+                    txtNombresDonante.setText(queryResult.getString("nombre")+" "+queryResult.getString("apellido"));
+                    txtSangreDonante.setText(queryResult.getString("tipoDeSangre")+" "+queryResult.getString("tipificacionSangre"));
+                }
+                statement.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            if(txtNombresDonante.getText()=="") App.crearAlerta("No se ha encontrado un donador con ese número de cédula");
+        }
     }
 
     @FXML
     private void validarIDBeneficiario(ActionEvent event) { //HACER VALIDACIONES!!!!!!!
-        txtNombresBeneficiario.setText("");
-        txtSangreBeneficiario.setText("");
-        idBeneficiario = 0;
-        
-        String id = txtIdBeneficiario.getText();
-        String busqueda = "SELECT idBeneficiario, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Beneficiario WHERE idBeneficiario= '"+id+"'";
-        
-        try{
-            Statement statement = App.conexionBaseDatos.createStatement();
-            ResultSet queryResult = statement.executeQuery(busqueda);
-            
-            while(queryResult.next()){
-                idBeneficiario = queryResult.getInt("idBeneficiario");
-                txtNombresBeneficiario.setText(queryResult.getString("nombre")+" "+queryResult.getString("apellido"));
-                txtSangreBeneficiario.setText(queryResult.getString("tipoDeSangre")+" "+queryResult.getString("tipificacionSangre"));
-            }
-            statement.close();
-        }catch(Exception e){
-            e.printStackTrace();
+        if(!txtIdBeneficiario.getText().chars().allMatch( Character :: isDigit )){
+            App.crearAlerta("El ID del beneficiario no es válido");
         }
-        
-        if(txtNombresBeneficiario.getText()=="") System.out.println("No existe");
+        else{
+            txtNombresBeneficiario.setText("");
+            txtSangreBeneficiario.setText("");
+            idBeneficiario = 0;
+
+            String id = txtIdBeneficiario.getText();
+            String busqueda = "SELECT idBeneficiario, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Beneficiario WHERE idBeneficiario= '"+id+"'";
+
+            try{
+                Statement statement = App.conexionBaseDatos.createStatement();
+                ResultSet queryResult = statement.executeQuery(busqueda);
+
+                while(queryResult.next()){
+                    idBeneficiario = queryResult.getInt("idBeneficiario");
+                    txtNombresBeneficiario.setText(queryResult.getString("nombre")+" "+queryResult.getString("apellido"));
+                    txtSangreBeneficiario.setText(queryResult.getString("tipoDeSangre")+" "+queryResult.getString("tipificacionSangre"));
+                }
+                statement.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+            if(txtNombresBeneficiario.getText()=="") App.crearAlerta("No se ha encontrado un beneficiario con ese ID");
+        }
     }
 
     @FXML
@@ -159,5 +173,5 @@ public class AnadirDonacionController {
         
         
     }
-    
+
 }

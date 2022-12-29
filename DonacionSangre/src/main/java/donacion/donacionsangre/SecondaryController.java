@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -19,6 +20,18 @@ public class SecondaryController {
 
     @FXML
     private TextField txtPwEnfermero;
+    
+    public void initialize() {
+        txtPwEnfermero.setOnMouseClicked(ev -> revisarSoloNumeros(txtIDEnfermero));
+    }
+    
+    public static void revisarSoloNumeros(TextField tf){
+        if(!tf.getText().chars().allMatch( Character::isDigit )){
+            System.out.println("error id");
+        }else{
+            System.out.println("correcto");
+        }
+    }
 
 
     @FXML
@@ -46,7 +59,7 @@ public class SecondaryController {
                     buscarInfoEnfermero();
                     switchToMenuEnfermero();
                 }else{
-                    System.out.println("ERRONEO");
+                    App.crearAlerta("El ID o clave son incorrectos. \nRevise nuevamente");
                 }
             }
             statement.close();
@@ -74,5 +87,5 @@ public class SecondaryController {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
+    }    
 }
