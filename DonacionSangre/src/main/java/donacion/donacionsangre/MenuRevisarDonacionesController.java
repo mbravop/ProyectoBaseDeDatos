@@ -5,16 +5,15 @@
 package donacion.donacionsangre;
 
 import donacion.donacionsangre.modelo.Donacion;
-import donacion.donacionsangre.modelo.Donador;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,21 +24,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author mbravop
+ * @author Dereck Santander
  */
-public class MenuDonacionesController{
-
+public class MenuRevisarDonacionesController implements Initializable {
     
-    ArrayList<Donacion> listaDonaciones = new ArrayList<>();
-
+    ArrayList<Donacion> listaDonacionesXRevisar= new ArrayList<>();
+    
     @FXML
-    private TableView<Donacion> tvDonadores;
+    private TableColumn<Donacion, Integer> colIdDonacion;
     @FXML
-    private TableColumn<Donacion, Integer> colIdDonador;
+    private TableView<Donacion> tvDonacionesXRevisar;
     @FXML
     private TableColumn<Donacion, String> colCedulaDonador;
     @FXML
-    private TableColumn<Donacion, Boolean> colestadoDonacion;
+    private TableColumn<Donacion, String> colestadoDonacion;
     @FXML
     private TableColumn<Donacion, String> colTipoSangre;
     @FXML
@@ -49,10 +47,9 @@ public class MenuDonacionesController{
     /**
      * Initializes the controller class.
      */
-    
-    
-    public void initialize() {
-        colIdDonador.setCellValueFactory(new PropertyValueFactory<>("id"));
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        colIdDonacion.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCedulaDonador.setCellValueFactory(new PropertyValueFactory<>("cedulaDonador"));
         colestadoDonacion.setCellValueFactory(new PropertyValueFactory<>("aceptacion"));
         colTipoSangre.setCellValueFactory(new PropertyValueFactory<>("tipoDeSangre"));
@@ -61,15 +58,21 @@ public class MenuDonacionesController{
         llenarTabla();
     }    
     
+    
+    @FXML
+    private void switchToMenuDonaciones() throws IOException {
+        App.setRoot("menuDonaciones");
+    }
+
     public void llenarTabla(){
-        String busqueda = "SELECT d.idDonador, d.cedulaD, d.tipoDeSangre, d.tipificacionSangre, do.idDonacion, do.aceptacion, do.idEnfermero, do.idDestino, do.fechaDonacion FROM Donador d JOIN Donacion do ON do.idDonador = d.idDonador";
+        String busqueda = "SELECT d.idDonador, d.cedulaD, d.tipoDeSangre, d.tipificacionSangre, do.idDonacion, do.aceptacion, do.idEnfermero, do.idDestino, do.fechaDonacion FROM Donador d JOIN Donacion do ON do.idDonador = d.idDonador WHERE do.aceptacion='-'";
         
         try{
             Statement statement = App.conexionBaseDatos.createStatement();
             ResultSet queryResult = statement.executeQuery(busqueda);
             
             while(queryResult.next()){
-                listaDonaciones.add(new Donacion(queryResult.getInt("do.idDonacion"),
+                listaDonacionesXRevisar.add(new Donacion(queryResult.getInt("do.idDonacion"),
                                                queryResult.getString("d.cedulaD"),
                                                queryResult.getInt("do.idEnfermero"),
                                                queryResult.getInt("do.idDestino"),
@@ -84,21 +87,33 @@ public class MenuDonacionesController{
             e.printStackTrace();
         }
         
-        tvDonadores.getItems().addAll(listaDonaciones);
+        tvDonacionesXRevisar.getItems().addAll(listaDonacionesXRevisar);
     }
     
     @FXML
-    private void switchToMenuEnfermero() throws IOException {
-        App.setRoot("menuEnfermero");
+    private void aceptarDonacion() throws IOException{
+        Donacion d= (Donacion) tvDonacionesXRevisar.getSelectionModel().getSelectedItem();
+        try{
+            String consulta = "UPDATE Donacion SET aceptacion='A' WHERE idDonacion="+d.getId()+"";
+            PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+            ps.executeUpdate();
+            switchToMenuDonaciones();
+        }  catch(SQLException e){
+            e.printStackTrace();
+        }
     }
-    
+
     @FXML
-    private void agregarDonador() throws IOException {
-        App.setRoot("anadirDonacion");
+    private void rechazarDonacion() throws IOException {
+        Donacion d= (Donacion) tvDonacionesXRevisar.getSelectionModel().getSelectedItem();
+        try{
+            String consulta = "UPDATE Donacion SET aceptacion='N' WHERE idDonacion="+d.getId()+"";
+            PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+            ps.executeUpdate();
+            switchToMenuDonaciones();
+        }  catch(SQLException e){
+            e.printStackTrace();
+        }
     }
-    
-    @FXML
-    void revisarDonaciones() throws IOException {
-        App.setRoot("menuRevisarDonaciones");
-    }
+
 }

@@ -40,11 +40,13 @@ public class MenuEnfermeroController{
     }
 
     @FXML
-    private void switchToRevision(ActionEvent event) {
+    private void switchToRevision() throws IOException {
+        App.setRoot("menuRevisiones");
     }
 
     @FXML
-    private void switchToSolicitudes(ActionEvent event) {
+    private void switchToSolicitudes() throws IOException {
+        App.setRoot("menuSolicitud");
     }
     
 }

@@ -9,24 +9,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="donacion.donacionsangre.MenuDonacionesController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="donacion.donacionsangre.MenuRevisarDonacionesController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToMenuEnfermero" text="Regresar" />
-            <Label prefHeight="50.0" prefWidth="246.0" text="Info Donaciones">
+            <Button mnemonicParsing="false" onAction="#switchToMenuDonaciones" text="Regresar" />
+            <Label prefHeight="50.0" prefWidth="246.0" text="Laboratorio">
                <font>
                   <Font name="Arial Bold" size="30.0" />
                </font>
                <HBox.margin>
-                  <Insets left="210.0" />
+                  <Insets left="240.0" />
                </HBox.margin>
             </Label>
          </children>
       </HBox>
-      <TableView fx:id="tvDonadores" prefHeight="454.0" prefWidth="780.0">
+      <TableView fx:id="tvDonacionesXRevisar" prefHeight="454.0" prefWidth="780.0">
          <columns>
-            <TableColumn fx:id="colIdDonador" prefWidth="55.0" style="-fx-alignment: CENTER;" text="ID" />
+            <TableColumn fx:id="colIdDonacion" prefWidth="55.0" style="-fx-alignment: CENTER;" text="ID" />
             <TableColumn fx:id="colCedulaDonador" prefWidth="78.0" style="-fx-alignment: CENTER;" text="Cedula donador" />
             <TableColumn fx:id="colestadoDonacion" prefWidth="58.0" style="-fx-alignment: CENTER;" text="Estado" />
             <TableColumn fx:id="colTipoSangre" prefWidth="90.0" style="-fx-alignment: CENTER;" text="Tipo de Sangre" />
@@ -42,8 +42,8 @@
             <Insets top="10.0" />
          </VBox.margin>
          <children>
-            <Button mnemonicParsing="false" onAction="#agregarDonador" text="Agregar" />
-            <Button mnemonicParsing="false" onAction="#revisarDonaciones" text="Revisar Donaciones" />
+            <Button mnemonicParsing="false" onAction="#aceptarDonacion" text="Aceptar" />
+            <Button mnemonicParsing="false" onAction="#rechazarDonacion" text="Rechazar" />
          </children>
       </HBox>
    </children>

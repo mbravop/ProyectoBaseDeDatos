@@ -37,12 +37,13 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="CENTER" prefHeight="67.0" prefWidth="780.0">
+      <HBox alignment="CENTER" prefHeight="67.0" prefWidth="780.0" spacing="100.0">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
          <children>
             <Button mnemonicParsing="false" onAction="#agregarDonador" text="Agregar" />
+            <Button mnemonicParsing="false" onAction="#revisarDonaciones" text="Revisar Donaciones" />
          </children>
       </HBox>
    </children>
