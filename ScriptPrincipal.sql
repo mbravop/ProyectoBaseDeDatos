@@ -63,6 +63,12 @@ CREATE TABLE CredencialesEnfermeros(
     FOREIGN KEY (idEnfermero) REFERENCES Enfermero(idEnfermero)
 );
 
+CREATE TABLE CredencialesBeneficiarios(
+	idBeneficiario INT,
+    contrasenaBeneficiario VARCHAR(20) NOT NULL,
+    FOREIGN KEY (idBeneficiario) REFERENCES Beneficiario(idBeneficiario)
+);
+
 INSERT INTO Donador(cedulaD,nombre,apellido,sexo,tipoDeSangre,tipificacionSangre) VALUES ("0987654321","Mauricio","Bravo","M","O","+"),
 ("1234567890","Dereck","Santander","M","O","+"),
 ("1029384756","Fernanda","Mawyin","F","AB","-"),
@@ -99,5 +105,20 @@ INSERT INTO Solicitud(cantidadSolicitada,cantidadRecibida,fechaSolicitud,idBenef
 (1,1,DATE("2022-10-01"),2,TRUE),
 (3,1,DATE("2022-02-20"),3,FALSE);
 
+INSERT INTO CredencialesBeneficiarios VALUES (1,"mejorproyecto"),
+(2,"televisor"),
+(3,"celular"),
+(4,"espol"),
+(5,"contraseña");
+
+DELIMITER //
+
+CREATE TRIGGER tr1 AFTER UPDATE ON Donacion
+	FOR EACH ROW
+    BEGIN
+		INSERT INTO Revision(idEnfermero,idDonacion,fechaRevision) VALUES (new.idEnfermero,new.idDonacion, CURDATE());
+	END 
+// 
+DELIMITER ;
 
 SELECT d.idDonador, d.cedulaD, d.tipoDeSangre, d.tipificacionSangre, do.idDonacion, do.aceptacion, do.idEnfermero, do.idDestino, do.fechaDonacion FROM Donador d JOIN Donacion do ON do.idDonador = d.idDonador;
