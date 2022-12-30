@@ -20,6 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 /**
@@ -61,11 +63,16 @@ public class AnadirDonacionController {
     private TextField txtInfoEnfermero;
     @FXML
     private Button btnValidarBeneficiario;
+    @FXML
+    private Button btnAgregar;
 
     /**
      * Initializes the controller class.
      */
     public void initialize() {
+        Alert alerta= new Alert(Alert.AlertType.INFORMATION);
+            alerta.setContentText("Por favor llene todos los campos ");
+            alerta.showAndWait();
         idBeneficiario = 0;
         txtInfoEnfermero.setText(SecondaryController.idEnfermeroLog + " - "+SecondaryController.nombreEnfermeroLog+" "+SecondaryController.apellidoEnfermeroLog);
     }    
@@ -161,15 +168,24 @@ public class AnadirDonacionController {
     }
 
     @FXML
-    private void agregarDonacion() throws IOException {     
-        try{
+    private void agregarDonacion() throws IOException {
+        boolean a=String.valueOf(dpFechaDonacion.getValue()).isEmpty ();
+        boolean b= txtCedulaDonante.getText().isEmpty();
+        if((a)||(b)){
+            Alert alerta= new Alert(Alert.AlertType.WARNING);
+            alerta.setContentText("Por favor llene todos los campos ");
+            alerta.showAndWait();
+        }else{
+           try{
             String consulta = "INSERT INTO Donacion(idDonador,idEnfermero,fechaDonacion,idDestino,aceptacion) VALUES ("+ idDonador +", "+SecondaryController.idEnfermeroLog+", DATE('"+String.valueOf(dpFechaDonacion.getValue())+"'),'"+idBeneficiario+"','-')";
             PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
             ps.executeUpdate();
             switchToMenuDonaciones();
         }  catch(SQLException e){
             e.printStackTrace();
+        } 
         }
+        
         
         
     }

@@ -12,8 +12,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.TextField;
+
 /**
  * FXML Controller class
  *
@@ -21,22 +23,22 @@ import javafx.scene.control.TextField;
  */
 public class AnadirSolicitudController implements Initializable {
 
-
     @FXML
     private TextField txtNombresBeneficiario;
     @FXML
     private TextField txtCantidadSolicitada;
     @FXML
     private TextField txtIdBeneficiario;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        txtNombresBeneficiario.setText(LogInBeneficiarioController.nombreBeneficiarioLog+" "+LogInBeneficiarioController.apellidoBeneficiarioLog);
-        txtIdBeneficiario.setText(LogInBeneficiarioController.idBeneficiarioLog+"");
-    }    
-    
+        txtNombresBeneficiario.setText(LogInBeneficiarioController.nombreBeneficiarioLog + " " + LogInBeneficiarioController.apellidoBeneficiarioLog);
+        txtIdBeneficiario.setText(LogInBeneficiarioController.idBeneficiarioLog + "");
+    }
+
     @FXML
     private void switchToMenuSolicitudes() throws IOException {
         App.setRoot("menuSolicitudBeneficiario");
@@ -44,18 +46,25 @@ public class AnadirSolicitudController implements Initializable {
 
     @FXML
     private void agregarSolicitud() throws IOException {
-        if(!txtCantidadSolicitada.getText().chars().allMatch( Character :: isDigit )){
-            App.crearAlerta("La cantidad solicitada no es válida");
+        if (txtCantidadSolicitada.getText().isEmpty()) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setContentText("Por favor llene todos los campos ");
+            alerta.showAndWait();
+        } else {
+            if (!txtCantidadSolicitada.getText().chars().allMatch(Character::isDigit)) {
+                App.crearAlerta("La cantidad solicitada no es válida");
+            }
+
+            try {
+                String consulta = "INSERT INTO Solicitud(idBeneficiario,cantidadSolicitada,cantidadRecibida,fechaSolicitud,realizada) VALUES (" + LogInBeneficiarioController.idBeneficiarioLog + ", " + txtCantidadSolicitada.getText() + ",0,CURDATE(),false)";
+                PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+                ps.executeUpdate();
+                switchToMenuSolicitudes();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        
-        try{
-            String consulta = "INSERT INTO Solicitud(idBeneficiario,cantidadSolicitada,cantidadRecibida,fechaSolicitud,realizada) VALUES ("+ LogInBeneficiarioController.idBeneficiarioLog +", "+txtCantidadSolicitada.getText()+",0,CURDATE(),false)";
-            PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
-            ps.executeUpdate();
-            switchToMenuSolicitudes();
-        }  catch(SQLException e){
-            e.printStackTrace();
-        }
+
     }
 
 }

@@ -13,9 +13,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+
 /**
  * FXML Controller class
  *
@@ -36,41 +38,52 @@ public class AnadirDonadorController {
     private TextField txtApellidoDonador;
     @FXML
     private ComboBox<String> cmbSexo;
+
     /**
      * Initializes the controller class.
      */
     public void initialize() {
-        cmbTipoSangre.getItems().addAll("A","B","AB","O");
-        cmbTipificacionSangre.getItems().addAll("+","-");
-        cmbSexo.getItems().addAll("M","F");
-    }    
-    
+        cmbTipoSangre.getItems().addAll("A", "B", "AB", "O");
+        cmbTipificacionSangre.getItems().addAll("+", "-");
+        cmbSexo.getItems().addAll("M", "F");
+    }
+
     @FXML
-    private void anadirDonadorNuevo() throws IOException{ // HACER VALIDACIONES
-        erroresValidacionesCampos();
-        if(errores.size()>0){
-            String cadenaErrores = "";
-            for(String s: errores){
-                cadenaErrores+= ( s + "\n");
-            }
-            
-            App.crearAlerta(cadenaErrores);
-        }else{
-            String cedula = txtCedulaDonador.getText();
-            String nombre = txtNombreDonador.getText();
-            String apellido = txtApellidoDonador.getText();
-            String tipoS = cmbTipoSangre.getValue();
-            String tipificacion = cmbTipificacionSangre.getValue();
-            String sexo = cmbSexo.getValue();
+    private void anadirDonadorNuevo() throws IOException { // HACER VALIDACIONES
+        boolean a = txtCedulaDonador.getText().isEmpty();
+        boolean b = txtNombreDonador.getText().isEmpty();
+        boolean c = txtApellidoDonador.getText().isEmpty();
+        boolean d = cmbSexo.getValue()==null;
+        if ((a) || (b) || (c) || (d)) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setContentText("Por favor llene todos los campos ");
+            alerta.showAndWait();
+        } else {
 
+            erroresValidacionesCampos();
+            if (errores.size() > 0) {
+                String cadenaErrores = "";
+                for (String s : errores) {
+                    cadenaErrores += (s + "\n");
+                }
 
-            try{
-                String consulta = "INSERT INTO Donador(cedulaD,nombre,apellido,sexo,tipoDeSangre,tipificacionSangre) VALUES ( '"+ cedula +"', '"+nombre+"', '"+apellido+"','"+sexo+"','"+tipoS+"','"+tipificacion+"')";
-                PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
-                ps.executeUpdate();
-                switchToMenuDonadores();
-            }  catch(SQLException e){
-                e.printStackTrace();
+                App.crearAlerta(cadenaErrores);
+            } else {
+                String cedula = txtCedulaDonador.getText();
+                String nombre = txtNombreDonador.getText();
+                String apellido = txtApellidoDonador.getText();
+                String tipoS = cmbTipoSangre.getValue();
+                String tipificacion = cmbTipificacionSangre.getValue();
+                String sexo = cmbSexo.getValue();
+
+                try {
+                    String consulta = "INSERT INTO Donador(cedulaD,nombre,apellido,sexo,tipoDeSangre,tipificacionSangre) VALUES ( '" + cedula + "', '" + nombre + "', '" + apellido + "','" + sexo + "','" + tipoS + "','" + tipificacion + "')";
+                    PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+                    ps.executeUpdate();
+                    switchToMenuDonadores();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -79,18 +92,28 @@ public class AnadirDonadorController {
     private void switchToMenuDonadores() throws IOException {
         App.setRoot("menuDonadores");
     }
-    
-    private void erroresValidacionesCampos(){
+
+    private void erroresValidacionesCampos() {
         errores.clear();
-        boolean revisionCedula = txtCedulaDonador.getText().chars().allMatch( Character :: isDigit );
-        boolean revisionNombre = txtNombreDonador.getText().chars().allMatch( Character :: isLetter);
-        boolean revisionApellido = txtApellidoDonador.getText().chars().allMatch(Character :: isLetter);
-        
-        if(!revisionCedula || txtCedulaDonador.getText().length()!=10) errores.add("Número de cédula no válido");
-        if(!revisionNombre) errores.add("Nombre no válido");
-        if(txtNombreDonador.getText().length()>=50) errores.add("Campo de nombre supera 50 caracteres");
-        if(!revisionApellido) errores.add("Nombre no válido");
-        if(txtApellidoDonador.getText().length()>=50) errores.add("Campo de apellido supera 50 caracteres");
+        boolean revisionCedula = txtCedulaDonador.getText().chars().allMatch(Character::isDigit);
+        boolean revisionNombre = txtNombreDonador.getText().chars().allMatch(Character::isLetter);
+        boolean revisionApellido = txtApellidoDonador.getText().chars().allMatch(Character::isLetter);
+
+        if (!revisionCedula || txtCedulaDonador.getText().length() != 10) {
+            errores.add("Número de cédula no válido");
+        }
+        if (!revisionNombre) {
+            errores.add("Nombre no válido");
+        }
+        if (txtNombreDonador.getText().length() >= 50) {
+            errores.add("Campo de nombre supera 50 caracteres");
+        }
+        if (!revisionApellido) {
+            errores.add("Nombre no válido");
+        }
+        if (txtApellidoDonador.getText().length() >= 50) {
+            errores.add("Campo de apellido supera 50 caracteres");
+        }
     }
-    
+
 }
