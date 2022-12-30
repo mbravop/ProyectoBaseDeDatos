@@ -30,11 +30,11 @@ import javafx.scene.control.Button;
  * @author mbravop
  */
 public class AnadirDonacionController {
-    
+
     boolean infoMostrada = false;
     public static int idDonador;
     public static int idBeneficiario;
-    
+
     ArrayList<String> errores = new ArrayList<>();
 
     @FXML
@@ -70,18 +70,15 @@ public class AnadirDonacionController {
      * Initializes the controller class.
      */
     public void initialize() {
-        Alert alerta= new Alert(Alert.AlertType.INFORMATION);
-            alerta.setContentText("Por favor llene todos los campos ");
-            alerta.showAndWait();
         idBeneficiario = 0;
-        txtInfoEnfermero.setText(SecondaryController.idEnfermeroLog + " - "+SecondaryController.nombreEnfermeroLog+" "+SecondaryController.apellidoEnfermeroLog);
-    }    
+        txtInfoEnfermero.setText(SecondaryController.idEnfermeroLog + " - " + SecondaryController.nombreEnfermeroLog + " " + SecondaryController.apellidoEnfermeroLog);
+    }
 
     @FXML
     private void aparecerInfoBeneficiario() {
-        if(!infoMostrada){
+        if (!infoMostrada) {
             aparecerBeneficiario(true);
-        }else{
+        } else {
             aparecerBeneficiario(false);
             txtNombresBeneficiario.setText("");
             txtSangreBeneficiario.setText("");
@@ -91,10 +88,10 @@ public class AnadirDonacionController {
 
     @FXML
     private void switchToMenuDonaciones() throws IOException {
-       App.setRoot("menuDonaciones");
+        App.setRoot("menuDonaciones");
     }
-    
-    private void aparecerBeneficiario(boolean b){
+
+    private void aparecerBeneficiario(boolean b) {
         lblIdBeneficiario.setVisible(b);
         txtIdBeneficiario.setVisible(b);
         lblNombresBeneficiario.setVisible(b);
@@ -107,87 +104,105 @@ public class AnadirDonacionController {
 
     @FXML
     private void validarCedulaDonante() {
-        if(!txtCedulaDonante.getText().chars().allMatch( Character :: isDigit ) || txtCedulaDonante.getText().length()!=10 ){
+        if (!txtCedulaDonante.getText().chars().allMatch(Character::isDigit) || txtCedulaDonante.getText().length() != 10) {
             App.crearAlerta("Numero de cédula no válido");
-        }
-        else{
-            
+        } else {
+
             txtNombresDonante.setText("");
             txtSangreDonante.setText("");
 
             String cedula = txtCedulaDonante.getText();
-            String busqueda = "SELECT idDonador, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Donador WHERE cedulaD= '"+cedula+"'";
+            String busqueda = "SELECT idDonador, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Donador WHERE cedulaD= '" + cedula + "'";
 
-            try{
+            try {
                 Statement statement = App.conexionBaseDatos.createStatement();
                 ResultSet queryResult = statement.executeQuery(busqueda);
 
-                while(queryResult.next()){
+                while (queryResult.next()) {
                     idDonador = queryResult.getInt("idDonador");
-                    txtNombresDonante.setText(queryResult.getString("nombre")+" "+queryResult.getString("apellido"));
-                    txtSangreDonante.setText(queryResult.getString("tipoDeSangre")+" "+queryResult.getString("tipificacionSangre"));
+                    txtNombresDonante.setText(queryResult.getString("nombre") + " " + queryResult.getString("apellido"));
+                    txtSangreDonante.setText(queryResult.getString("tipoDeSangre") + " " + queryResult.getString("tipificacionSangre"));
                 }
                 statement.close();
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            if(txtNombresDonante.getText()=="") App.crearAlerta("No se ha encontrado un donador con ese número de cédula");
+            if (txtNombresDonante.getText() == "") {
+                App.crearAlerta("No se ha encontrado un donador con ese número de cédula");
+            }
         }
     }
 
     @FXML
     private void validarIDBeneficiario(ActionEvent event) { //HACER VALIDACIONES!!!!!!!
-        if(!txtIdBeneficiario.getText().chars().allMatch( Character :: isDigit )){
+        if (!txtIdBeneficiario.getText().chars().allMatch(Character::isDigit)) {
             App.crearAlerta("El ID del beneficiario no es válido");
-        }
-        else{
+        } else {
             txtNombresBeneficiario.setText("");
             txtSangreBeneficiario.setText("");
             idBeneficiario = 0;
 
             String id = txtIdBeneficiario.getText();
-            String busqueda = "SELECT idBeneficiario, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Beneficiario WHERE idBeneficiario= '"+id+"'";
+            String busqueda = "SELECT idBeneficiario, nombre, apellido, tipoDeSangre, tipificacionSangre FROM Beneficiario WHERE idBeneficiario= '" + id + "'";
 
-            try{
+            try {
                 Statement statement = App.conexionBaseDatos.createStatement();
                 ResultSet queryResult = statement.executeQuery(busqueda);
 
-                while(queryResult.next()){
+                while (queryResult.next()) {
                     idBeneficiario = queryResult.getInt("idBeneficiario");
-                    txtNombresBeneficiario.setText(queryResult.getString("nombre")+" "+queryResult.getString("apellido"));
-                    txtSangreBeneficiario.setText(queryResult.getString("tipoDeSangre")+" "+queryResult.getString("tipificacionSangre"));
+                    txtNombresBeneficiario.setText(queryResult.getString("nombre") + " " + queryResult.getString("apellido"));
+                    txtSangreBeneficiario.setText(queryResult.getString("tipoDeSangre") + " " + queryResult.getString("tipificacionSangre"));
                 }
                 statement.close();
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            if(txtNombresBeneficiario.getText()=="") App.crearAlerta("No se ha encontrado un beneficiario con ese ID");
+            if (txtNombresBeneficiario.getText() == "") {
+                App.crearAlerta("No se ha encontrado un beneficiario con ese ID");
+            }
         }
     }
 
     @FXML
     private void agregarDonacion() throws IOException {
-        boolean a=String.valueOf(dpFechaDonacion.getValue()).isEmpty ();
-        boolean b= txtCedulaDonante.getText().isEmpty();
-        if((a)||(b)){
-            Alert alerta= new Alert(Alert.AlertType.WARNING);
-            alerta.setContentText("Por favor llene todos los campos ");
-            alerta.showAndWait();
+        boolean a = dpFechaDonacion.getValue() == null;
+        boolean b = txtCedulaDonante.getText().isEmpty();
+        boolean c = txtNombresBeneficiario.getText().isEmpty();
+        if (infoMostrada) {
+            if ((a) || (b) || (c)) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setContentText("Por favor llene todos los campos ");
+                alerta.showAndWait();
+            } else {
+                try {
+                    String consulta = "INSERT INTO Donacion(idDonador,idEnfermero,fechaDonacion,idDestino,aceptacion) VALUES (" + idDonador + ", " + SecondaryController.idEnfermeroLog + ", DATE('" + String.valueOf(dpFechaDonacion.getValue()) + "'),'" + idBeneficiario + "','-')";
+                    PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+                    ps.executeUpdate();
+                    switchToMenuDonaciones();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }else{
-           try{
-            String consulta = "INSERT INTO Donacion(idDonador,idEnfermero,fechaDonacion,idDestino,aceptacion) VALUES ("+ idDonador +", "+SecondaryController.idEnfermeroLog+", DATE('"+String.valueOf(dpFechaDonacion.getValue())+"'),'"+idBeneficiario+"','-')";
-            PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
-            ps.executeUpdate();
-            switchToMenuDonaciones();
-        }  catch(SQLException e){
-            e.printStackTrace();
-        } 
+            if ((a) || (b)) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setContentText("Por favor llene todos los campos ");
+                alerta.showAndWait();
+            } else {
+                try {
+                    String consulta = "INSERT INTO Donacion(idDonador,idEnfermero,fechaDonacion,idDestino,aceptacion) VALUES (" + idDonador + ", " + SecondaryController.idEnfermeroLog + ", DATE('" + String.valueOf(dpFechaDonacion.getValue()) + "'),'" + idBeneficiario + "','-')";
+                    PreparedStatement ps = App.conexionBaseDatos.prepareStatement(consulta);
+                    ps.executeUpdate();
+                    switchToMenuDonaciones();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        
-        
-        
+
     }
 
 }
