@@ -11,17 +11,27 @@ import java.sql.Date;
  * @author Dereck Santander
  */
 public class Solicitud {
-    int idSolicitud,cantidadSolicitada,cantidadRecibida,idBeneficiario;
+    int idSolicitud,cantidadSolicitada,cantidadRecibida;
+    String nombreBeneficiario, apellidoBeneficiario;
     Date fechaSolicitud;
     Boolean realizada;
 
-    public Solicitud(int idSolicitud, int cantidadSolicitada, int cantidadRecibida, Date fechaSolicitud, int idBeneficiario, Boolean realizada) {
+    public Solicitud(int idSolicitud, int cantidadSolicitada, int cantidadRecibida, Date fechaSolicitud,String nombreBeneficiario, String apellidoBeneficiario, Boolean realizada) {
         this.idSolicitud = idSolicitud;
         this.cantidadSolicitada = cantidadSolicitada;
         this.cantidadRecibida = cantidadRecibida;
-        this.idBeneficiario = idBeneficiario;
+        this.nombreBeneficiario = nombreBeneficiario;
+        this.apellidoBeneficiario = apellidoBeneficiario;
         this.fechaSolicitud = fechaSolicitud;
         this.realizada = realizada;
+    }
+
+    public String getNombreBeneficiario() {
+        return nombreBeneficiario;
+    }
+
+    public String getApellidoBeneficiario() {
+        return apellidoBeneficiario;
     }
 
     public int getIdSolicitud() {
@@ -46,14 +56,6 @@ public class Solicitud {
 
     public void setCantidadRecibida(int cantidadRecibida) {
         this.cantidadRecibida = cantidadRecibida;
-    }
-
-    public int getIdBeneficiario() {
-        return idBeneficiario;
-    }
-
-    public void setIdBeneficiario(int idBeneficiario) {
-        this.idBeneficiario = idBeneficiario;
     }
 
     public Date getFechaSolicitud() {

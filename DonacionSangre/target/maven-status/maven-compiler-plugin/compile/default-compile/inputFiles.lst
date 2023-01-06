@@ -1,21 +1,20 @@
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\modelo\Revision.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\module-info.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuSolicitudBeneficiarioController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\modelo\Donador.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\LogInBeneficiarioController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuRevisarDonacionesController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\AnadirDonadorController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuDonadoresController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\App.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\PrimaryController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\modelo\Solicitud.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\ConexionBDD.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\SecondaryController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\AnadirSolicitudController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuDonacionesController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\modelo\Donacion.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\modelo\Enfermero.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuRevisionesController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuEnfermeroController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\MenuSolicitudController.java
-D:\Documentos\NetBeansProjects\ProyectoBaseDeDatos\DonacionSangre\src\main\java\donacion\donacionsangre\AnadirDonacionController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/LoginGeneralController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoEnfermeroController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoDonacionesController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoSolicitudesController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoDonadoresController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/ConexionBDD.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoRevisionesController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/modelo/Enfermero.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/modelo/Donador.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/App.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoRevisarDonacionesController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoSolicitudesBeneficiarioController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/modelo/Revision.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/NuevoAnadirSolicitudController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/modelo/Solicitud.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/NuevoAnadirDonadorController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/modelo/Donacion.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/MenuNuevoBeneficiarioController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/donacion/donacionsangre/NuevoAnadirDonacionController.java
+/Users/mbravop03/Desktop/ESPOL/Tercer Semestre/Base de Datos/ProyectoGit/ProyectoBaseDeDatos/DonacionSangre/src/main/java/module-info.java

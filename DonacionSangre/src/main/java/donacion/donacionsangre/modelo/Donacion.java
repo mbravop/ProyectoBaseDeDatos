@@ -13,19 +13,30 @@ import java.sql.Date;
 public class Donacion {
     int id, idEnfermero, idDestino;
     String cedulaDonador;
+    String nombreDonador,apellidoDonador;
     String aceptacion;
     String tipoDeSangre, tipificacionSangre;
     Date fechaDonacion;
 
-    public Donacion(int id, String cedulaDonador, int idEnfermero, int idDestino, String aceptacion, String tipoDeSangre, String tipificacionSangre, Date fechaDonacion) {
+    public Donacion(int id, String cedulaDonador,String nombreDonador, String apellidoDonador, int idEnfermero, int idDestino, String aceptacion, String tipoDeSangre, String tipificacionSangre, Date fechaDonacion) {
         this.id = id;
         this.cedulaDonador = cedulaDonador;
+        this.nombreDonador = nombreDonador;
+        this.apellidoDonador = apellidoDonador;
         this.idEnfermero = idEnfermero;
         this.idDestino = idDestino;
         this.aceptacion = aceptacion;
         this.tipoDeSangre = tipoDeSangre;
         this.tipificacionSangre = tipificacionSangre;
         this.fechaDonacion = fechaDonacion;
+    }
+
+    public String getNombreDonador() {
+        return nombreDonador;
+    }
+
+    public String getApellidoDonador() {
+        return apellidoDonador;
     }
 
     public int getId() {

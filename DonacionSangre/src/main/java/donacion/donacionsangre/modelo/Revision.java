@@ -11,13 +11,17 @@ import java.sql.Date;
  * @author Dereck Santander
  */
 public class Revision {
-    int id, idEnfermero, idDonacion;
+    int id,idDonacion;
+    String nombreDonador, apellidoDonador, nombreEnfermero, apellidoEnfermero;
     Date fechaRevision;
 
-    public Revision(int id, int idEnfermero, int idDonacion, Date fechaRevision) {
+    public Revision(int id, int idDonacion, String nombreDonador,String apellidoDonador,String nombreEnfermero, String apellidoEnfermero, Date fechaRevision) {
         this.id = id;
-        this.idEnfermero = idEnfermero;
         this.idDonacion = idDonacion;
+        this.nombreDonador = nombreDonador;
+        this.apellidoDonador = apellidoDonador;
+        this.nombreEnfermero = nombreEnfermero;
+        this.apellidoEnfermero = apellidoEnfermero;
         this.fechaRevision = fechaRevision;
     }
 
@@ -25,33 +29,31 @@ public class Revision {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdEnfermero() {
-        return idEnfermero;
-    }
-
-    public void setIdEnfermero(int idEnfermero) {
-        this.idEnfermero = idEnfermero;
-    }
-
     public int getIdDonacion() {
         return idDonacion;
     }
 
-    public void setIdDonacion(int idDonacion) {
-        this.idDonacion = idDonacion;
+    public String getNombreDonador() {
+        return nombreDonador;
+    }
+
+    public String getApellidoDonador() {
+        return apellidoDonador;
+    }
+
+    public String getNombreEnfermero() {
+        return nombreEnfermero;
+    }
+
+    public String getApellidoEnfermero() {
+        return apellidoEnfermero;
     }
 
     public Date getFechaRevision() {
         return fechaRevision;
     }
 
-    public void setFechaRevision(Date fechaRevision) {
-        this.fechaRevision = fechaRevision;
-    }
+    
     
     
     

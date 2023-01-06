@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="donacion.donacionsangre.LoginGeneralController">
+   <children>
+      <ImageView fitHeight="640.0" fitWidth="1027.0" layoutX="-21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../imagenes/fondoLogin.jpeg" />
+         </image></ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#832727" height="435.0" layoutX="305.0" layoutY="122.0" opacity="0.87" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="10.0" width="380.0" AnchorPane.leftAnchor="300.0" />
+      <Text layoutX="445.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOG IN" textAlignment="CENTER" underline="true" wrappingWidth="108.85618297405102">
+         <font>
+            <Font name="Helvetica Neue" size="32.0" />
+         </font>
+      </Text>
+      <Text layoutX="367.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Donación de sangre" wrappingWidth="264.5576171875">
+         <font>
+            <Font name="Georgia Bold" size="26.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtIDUsuario" focusTraversable="false" layoutX="394.0" layoutY="327.0" prefHeight="26.0" prefWidth="210.0" promptText="Ingrese su ID">
+         <effect>
+            <Glow />
+         </effect>
+      </TextField>
+      <PasswordField fx:id="txtPwUsuario" focusTraversable="false" layoutX="394.0" layoutY="384.0" prefWidth="210.0" promptText="Ingrese su contraseña" />
+      <ComboBox fx:id="cmbTipoUsuario" layoutX="424.0" layoutY="442.0" opacity="0.81" prefWidth="150.0" promptText="Tipo de Usuario" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9baab9" height="39.0" layoutX="420.0" layoutY="499.0" onMouseClicked="#realizarLogin" stroke="BLACK" strokeType="INSIDE" width="159.0" />
+      <Text layoutX="473.0" layoutY="523.0" onMouseClicked="#realizarLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingresar">
+         <font>
+            <Font name="SansSerif Bold" size="13.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
